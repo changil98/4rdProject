@@ -5,14 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private PlayerController controller;
+    private Animator animator;
 
     public GameObject gameover;
 
-    public Animator animator;
-
     private void Awake()
     {
-        controller = GetComponent<PlayerController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +29,14 @@ public class Player : MonoBehaviour
 
             Invoke("GameOver", 0.1f);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Boat")
+            transform.SetParent(collision.gameObject.transform);
+        else
+            transform.SetParent(null);
     }
 
     private void GameOver()

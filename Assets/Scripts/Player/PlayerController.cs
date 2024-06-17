@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
+
     public LayerMask objLayerMask;
 
     private bool move = false;
