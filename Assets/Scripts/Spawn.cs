@@ -44,7 +44,7 @@ public class Spawn : MonoBehaviour
         Vector3 height = transform.position;
         height.y = 0.42f;
 
-        GameObject cloneoObj = GameObject.Instantiate(CloneBoatPrefab.gameObject, height, PrefabTransform.rotation, this.transform);
+        GameObject cloneoObj = Instantiate(CloneBoatPrefab.gameObject, height, PrefabTransform.rotation, this.transform);
 
         cloneoObj.SetActive(true);
     }
@@ -55,7 +55,7 @@ public class Spawn : MonoBehaviour
         Vector3 height = transform.position;
         height.y = 1f;
 
-        GameObject cloneoObj = GameObject.Instantiate(CloneCarPrefab.gameObject, height, PrefabTransform.rotation, this.transform);
+        GameObject cloneoObj = Instantiate(CloneCarPrefab.gameObject, height, PrefabTransform.rotation, this.transform);
 
         cloneoObj.SetActive(true);
     }

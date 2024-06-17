@@ -4,34 +4,61 @@ using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
-    public GameObject[] EnvironmentObjArray;
-    public Transform ParentTransform = null;
+    public GameObject[] MapPrefabs;
 
-    public int MinPosZ = -20;
-    public int MaxPosZ = 20;
+    private Transform playerTransform;
+    private float spawnZ = 1.0f;
+    private float MapLength = 1.0f;
+    private float safeZone = 15.0f;
+    private int amountMapsOnScreen = 40;
+
+    private List<GameObject> activeMaps;
+    private GameObject startMap;
 
     void Start()
     {
-        for (int i = MinPosZ; i < MaxPosZ; i++)
+        activeMaps = new List<GameObject>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        startMap = GameObject.FindGameObjectWithTag("StartMap");
+
+        for (int i = 0; i < amountMapsOnScreen; i++)
         {
-            CloneRoad(i);
+            CloneMap();
         }
     }
 
-    void CloneRoad(int p_posz)
+    private void Update()
     {
-        int randomindex = Random.Range(0, EnvironmentObjArray.Length);
-        GameObject cloneObj = GameObject.Instantiate(EnvironmentObjArray[randomindex]);
-
-        Vector3 offsetpos = Vector3.zero;
-        offsetpos.z = (float)p_posz;
-        cloneObj.transform.SetParent(ParentTransform);
-        cloneObj.transform.position = offsetpos;
-
-        int randomrot = Random.Range(0, 2);
-        if (randomrot == 1)
+        if (playerTransform.position.z - safeZone > (spawnZ - amountMapsOnScreen * MapLength))
         {
-            cloneObj.transform.rotation = Quaternion.Euler(0, 180f, 0f);
+            CloneMap();
+            DestroyMap();
         }
+    }
+
+    void CloneMap(int prefabIndex = -1)
+    {
+        GameObject gameObject;
+        int randomIndex = Random.Range(0, MapPrefabs.Length);
+        gameObject = Instantiate(MapPrefabs[randomIndex]);
+        gameObject.transform.SetParent(transform);
+        gameObject.transform.position = Vector3.forward * spawnZ;
+        spawnZ += MapLength;
+
+        int randomRot = Random.Range(0, 2);
+        if (randomRot == 1)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 180f, 0f);
+        }
+
+        activeMaps.Add(gameObject);
+    }
+
+    void DestroyMap()
+    {
+        Destroy(startMap);
+        Destroy(activeMaps[0]);
+        activeMaps.RemoveAt(0);
+
     }
 }
