@@ -6,9 +6,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
     public LayerMask objLayerMask;
 
     private bool move = false;
+
+    private void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     void Update()
     {
@@ -22,6 +28,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 move = true;
+
+                StartCoroutine("JumpAni");
 
                 transform.Translate(new Vector3(0, 0, 1));
 
@@ -42,6 +50,8 @@ public class PlayerController : MonoBehaviour
             {
                 move = true;
 
+                StartCoroutine("JumpAni");
+
                 transform.Translate(new Vector3(0, 0, -1));
 
                 if (transform.GetChild(0).rotation.y != 180)
@@ -60,6 +70,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 move = true;
+
+                StartCoroutine("JumpAni");
 
                 transform.Translate(new Vector3(-1, 0, 0));
 
@@ -80,6 +92,8 @@ public class PlayerController : MonoBehaviour
             {
                 move = true;
 
+                StartCoroutine("JumpAni");
+
                 transform.Translate(new Vector3(1, 0, 0));
 
                 if (transform.GetChild(0).rotation.y != 90)
@@ -90,5 +104,12 @@ public class PlayerController : MonoBehaviour
         }
 
         move = false;
+    }
+
+    IEnumerator JumpAni()
+    {
+        animator.SetBool("Jump", true);
+        yield return new WaitForSeconds(0.3f);
+        animator.SetBool("Jump", false);
     }
 }

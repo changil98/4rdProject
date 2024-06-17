@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     public GameObject gameover;
 
+    public Animator animator;
+
     private void Awake()
     {
         controller = GetComponent<PlayerController>();
@@ -17,15 +19,22 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Car")
         {
+            animator.SetBool("Crash", true);
             Debug.Log("Â÷¿¡ ºÎµúÈû");
-            Time.timeScale = 0f;
-            gameover.SetActive(true);
+
+            Invoke("GameOver", 0.5f);
         }
         else if (other.gameObject.tag == "Water")
         {
             Debug.Log("ÀÍ»ç...");
-            Time.timeScale = 0f;
-            gameover.SetActive(true);
+
+            Invoke("GameOver", 0.1f);
         }
+    }
+
+    private void GameOver()
+    {
+        Time.timeScale = 0f;
+        gameover.SetActive(true);
     }
 }
