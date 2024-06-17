@@ -185,5 +185,5 @@ MonoBehaviour:
   CloneBoatPrefab: {fileID: 7021133959878355520, guid: 4f16264e318baec4284eadebf45e75d1, type: 3}
   CloneCarPrefab: {fileID: 7098279709240121000, guid: 5406e46778cb71748b92eea3cf8480ff, type: 3}
   PrefabTransform: {fileID: 342765019768401888}
-  ClonePersent: 30
+  ClonePersent: 50
   CloneDelaySec: 2
