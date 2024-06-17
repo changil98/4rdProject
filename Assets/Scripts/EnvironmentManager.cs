@@ -36,7 +36,7 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
-    void CloneMap(int prefabIndex = -1)
+    void CloneMap()
     {
         GameObject gameObject;
         int randomIndex = Random.Range(0, MapPrefabs.Length);
