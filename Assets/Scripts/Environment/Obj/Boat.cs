@@ -7,7 +7,6 @@ public class Boat : MonoBehaviour
     private float MoveSpeed = 2f;
     private float RangeDestroy = 12;
 
-    int a = 0;
     void Update()
     {
         float moveX = MoveSpeed * Time.deltaTime;

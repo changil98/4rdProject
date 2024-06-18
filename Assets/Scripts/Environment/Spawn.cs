@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
     public Boat CloneBoatPrefab;
-    public Car CloneCarPrefab;
+    public Cars cars;
     public Transform PrefabTransform;
     public int ClonePersent;
     public float CloneDelaySec;
@@ -49,13 +50,15 @@ public class Spawn : MonoBehaviour
         cloneoObj.SetActive(true);
     }
 
-    void CloneCar()
+    private void CloneCar()
     {
         Transform transform = PrefabTransform;
         Vector3 height = transform.position;
         height.y = 1f;
 
-        GameObject cloneoObj = Instantiate(CloneCarPrefab.gameObject, height, PrefabTransform.rotation, this.transform);
+        int randomCar = Random.Range(0, cars.car.Length);
+
+        GameObject cloneoObj = Instantiate(cars.car[randomCar], height, PrefabTransform.rotation, this.transform);
 
         cloneoObj.SetActive(true);
     }

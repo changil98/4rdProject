@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    private float MoveSpeed = 2f;
-    private float RangeDestroy = 12;
+    public Cars cars;
 
     void Update()
     {
-        float moveX = MoveSpeed * Time.deltaTime;
+        float moveX = cars.moveSpeed * Time.deltaTime;
         transform.Translate(moveX, 0f, 0f);
 
-        if (transform.localPosition.x >= RangeDestroy)
+        if (transform.localPosition.x >= cars.rangeDestroy)
         {
             Destroy(gameObject);
         }
